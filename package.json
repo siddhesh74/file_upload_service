@@ -6,8 +6,9 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
+    "migration:create": "npx typeorm-ts-node-commonjs migration:create -u src/config/database.ts -d ./src/migrations",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/config/database.ts",
+    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d src/config/database.ts"
   },
   "keywords": [],
   "author": "",

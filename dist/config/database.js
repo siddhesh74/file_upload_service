@@ -55,8 +55,8 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: ["src/entities/**/*.ts"],
-    migrations: ["src/migrations/**/*.ts"],
+    entities: ["src/entities/*.ts"],
+    migrations: ["src/migrations/*.ts"],
     subscribers: [],
 });
 const initializeDB = () => __awaiter(void 0, void 0, void 0, function* () {
