@@ -1,7 +1,6 @@
 import { AppDataSource } from "../config/database";
 import { File } from "../entities/File.entity";
 import { User } from "../entities/User.entity";
-import { TaskService } from "./task.service";
 
 const fileRepository = AppDataSource.getRepository(File);
 
@@ -20,13 +19,6 @@ export const FileService = {
     });
 
     const savedFile = await fileRepository.save(file);
-
-    // Create a background task
-    await TaskService.createTask({
-      type: "file_processing",
-      status: "uploaded",
-      user,
-    });
 
     return savedFile;
   },

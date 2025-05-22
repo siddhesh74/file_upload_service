@@ -13,7 +13,6 @@ exports.FileService = void 0;
 const database_1 = require("../config/database");
 const File_entity_1 = require("../entities/File.entity");
 const User_entity_1 = require("../entities/User.entity");
-const task_service_1 = require("./task.service");
 const fileRepository = database_1.AppDataSource.getRepository(File_entity_1.File);
 exports.FileService = {
     createFile(fileData, userId) {
@@ -26,12 +25,6 @@ exports.FileService = {
             }
             const file = fileRepository.create(Object.assign(Object.assign({}, fileData), { user }));
             const savedFile = yield fileRepository.save(file);
-            // Create a background task
-            yield task_service_1.TaskService.createTask({
-                type: "file_processing",
-                status: "uploaded",
-                user,
-            });
             return savedFile;
         });
     },

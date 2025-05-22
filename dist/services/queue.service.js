@@ -14,35 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueueService = void 0;
 const bull_1 = __importDefault(require("bull"));
-const task_service_1 = require("./task.service");
 const taskQueue = new bull_1.default("task-queue", {
     redis: {
         host: "127.0.0.1",
         port: 6379,
     },
 });
-// Process jobs in the queue
-taskQueue.process((job) => __awaiter(void 0, void 0, void 0, function* () {
-    const { taskId } = job.data;
-    // Update task status to processing
-    yield task_service_1.TaskService.updateTaskStatus(taskId, "processed");
-    try {
-        // Simulate processing (replace with actual processing logic)
-        yield new Promise((resolve) => setTimeout(resolve, 5000));
-        // Update task status to completed
-        yield task_service_1.TaskService.updateTaskStatus(taskId, "processed", {
-            message: "File processed successfully",
-        });
-        // Update related file status
-        // You might want to associate files with tasks in your logic
-    }
-    catch (error) {
-        yield task_service_1.TaskService.updateTaskStatus(taskId, "failed", {
-            error: error.message,
-        });
-        throw error;
-    }
-}));
 exports.QueueService = {
     addTaskToQueue(task) {
         return __awaiter(this, void 0, void 0, function* () {

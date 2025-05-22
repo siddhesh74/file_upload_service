@@ -19,12 +19,16 @@ exports.FileController = {
                     return res.status(400).json({ error: "No file uploaded" });
                 }
                 const userId = req.user.id;
+                // Get optional metadata from form-data
+                const { title, description } = req.body;
                 const fileData = {
                     originalName: req.file.originalname,
                     storedName: req.file.filename,
                     path: req.file.path,
                     size: req.file.size,
                     mimeType: req.file.mimetype,
+                    title, // add title
+                    description, // add description
                 };
                 const file = yield file_service_1.FileService.createFile(fileData, userId);
                 res.status(201).json(file);

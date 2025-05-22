@@ -6,7 +6,6 @@ import { upload } from "./config/multer";
 import { AuthController } from "./controllers/auth.controller";
 import { FileController } from "./controllers/file.controller";
 import { authMiddleware } from "./middleware/auth.middleware";
-import { TaskController } from "./controllers/task.controller";
 import { errorMiddleware } from "./middleware/error.middleware";
 
 export const createApp = () => {
@@ -27,10 +26,6 @@ export const createApp = () => {
   app.get("/files", authMiddleware, FileController.listFiles);
   app.get("/files/:id", authMiddleware, FileController.getFile);
   app.get("/files/:id/download", authMiddleware, FileController.downloadFile);
-
-  // Task Routes (protected)
-  app.get("/tasks", authMiddleware, TaskController.listTasks);
-  app.get("/tasks/:id", authMiddleware, TaskController.getTask);
 
   // Error handling
   app.use(errorMiddleware);

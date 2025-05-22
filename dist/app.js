@@ -12,7 +12,6 @@ const multer_1 = require("./config/multer");
 const auth_controller_1 = require("./controllers/auth.controller");
 const file_controller_1 = require("./controllers/file.controller");
 const auth_middleware_1 = require("./middleware/auth.middleware");
-const task_controller_1 = require("./controllers/task.controller");
 const error_middleware_1 = require("./middleware/error.middleware");
 const createApp = () => {
     const app = (0, express_1.default)();
@@ -29,9 +28,6 @@ const createApp = () => {
     app.get("/files", auth_middleware_1.authMiddleware, file_controller_1.FileController.listFiles);
     app.get("/files/:id", auth_middleware_1.authMiddleware, file_controller_1.FileController.getFile);
     app.get("/files/:id/download", auth_middleware_1.authMiddleware, file_controller_1.FileController.downloadFile);
-    // Task Routes (protected)
-    app.get("/tasks", auth_middleware_1.authMiddleware, task_controller_1.TaskController.listTasks);
-    app.get("/tasks/:id", auth_middleware_1.authMiddleware, task_controller_1.TaskController.getTask);
     // Error handling
     app.use(error_middleware_1.errorMiddleware);
     return app;
